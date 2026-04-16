@@ -1,13 +1,15 @@
 package com.example;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.WindowType;
 
 public class App {
 
     public static void main(String[] args) throws InterruptedException {
+
+        System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
 
         FirefoxOptions options = new FirefoxOptions();
         
@@ -22,23 +24,24 @@ public class App {
 
         WebDriver driver = new FirefoxDriver(options);
 
-        // Open SauceDemo
-        driver.get("https://www.saucedemo.com/");
         driver.manage().window().maximize();
 
-        Thread.sleep(3000);
-
-        // Navigate to Practice Test site
-        driver.get("https://practicetestautomation.com/practice-test-login/");
-
+        // Open first website
+        driver.get("https://www.saucedemo.com/");
         Thread.sleep(2000);
 
-        // Login
-        driver.findElement(By.id("username")).sendKeys("student");
-        driver.findElement(By.id("password")).sendKeys("Password123");
-        driver.findElement(By.id("submit")).click();
+        // Open second website
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.get("https://automationexercise.com/");
+        Thread.sleep(2000);
 
-        Thread.sleep(3000);
+        // Open third website
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.get("https://practicetestautomation.com/");
+        Thread.sleep(2000);
+
+        // Keep browser open
+        Thread.sleep(2000);
 
         driver.quit();
     }
